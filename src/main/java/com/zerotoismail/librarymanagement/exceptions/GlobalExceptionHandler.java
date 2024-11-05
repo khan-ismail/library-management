@@ -27,10 +27,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatusCode status,
-                                                                  WebRequest request) {
-        return super.handleMethodArgumentNotValid(ex, headers, status, request);
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> parentExceptionHandler(Exception ex, WebRequest request) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setStatusCode(HttpStatus.NOT_FOUND.value());
+        errorResponseDto.setApiPath(request.getDescription(false));
+        errorResponseDto.setMessage(ex.getMessage());
+        errorResponseDto.setTimestamp(LocalDateTime.now());
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
+
+//    @Override
+//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+//                                                                  HttpHeaders headers, HttpStatusCode status,
+//                                                                  WebRequest request) {
+//        return super.handleMethodArgumentNotValid(ex, headers, status, request);
+//    }
 }

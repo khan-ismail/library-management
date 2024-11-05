@@ -6,7 +6,7 @@ import com.zerotoismail.librarymanagement.models.User;
 
 public class UserMapper {
 
-    static User fromUserToUserRequestDto(UserRequestDto userRequestDto, User user) {
+    public static User fromUserToUserRequestDto(UserRequestDto userRequestDto, User user) {
         user.setFirstName(userRequestDto.getFirstName());
         user.setLastName(userRequestDto.getLastName());
         user.setEmail(userRequestDto.getEmail());
@@ -15,7 +15,7 @@ public class UserMapper {
         return user;
     }
 
-    static UserRequestDto fromUserToUserRequestDto(User user, UserRequestDto userRequestDto) {
+    public static UserRequestDto fromUserToUserRequestDto(User user, UserRequestDto userRequestDto) {
         userRequestDto.setFirstName(user.getFirstName());
         userRequestDto.setLastName(user.getLastName());
         userRequestDto.setEmail(user.getEmail());
@@ -24,12 +24,11 @@ public class UserMapper {
         return userRequestDto;
     }
 
-    static UserResponseDto fromUserToUserResponseDto(User user, UserResponseDto userResponseDto) {
+    public static UserResponseDto fromUserToUserResponseDto(User user, UserResponseDto userResponseDto) {
         userResponseDto.setUuid(user.getId());
         userResponseDto.setFirstName(user.getFirstName());
         userResponseDto.setLastName(user.getLastName());
         userResponseDto.setEmail(user.getEmail());
-        userResponseDto.setPassword(user.getPassword());
         userResponseDto.setStatus(user.getStatus());
         return userResponseDto;
     }

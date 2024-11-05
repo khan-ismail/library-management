@@ -38,8 +38,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book createOrUpdateBook(UUID id, String title, String author,
                                    String publisher, List<BookGenreType> genreTypes,
-                                   BookStatus bookStatus, List<UserBorrowBook> borrowedBooks,
-                                   String isbn, double pageSize) {
+                                   BookStatus bookStatus, String isbn, double pageSize) {
         Book newBook = new Book();
         newBook.setId(id);
         newBook.setTitle(title);
@@ -47,7 +46,6 @@ public class BookServiceImpl implements BookService {
         newBook.setPublisher(publisher);
         newBook.setGenreTypes(genreTypes);
         newBook.setBookStatus(bookStatus);
-        newBook.setBorrowedBooks(borrowedBooks);
         newBook.setIsbn(isbn);
         newBook.setPageSize(pageSize);
 

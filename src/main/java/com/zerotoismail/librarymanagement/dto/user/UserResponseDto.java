@@ -17,7 +17,6 @@ public class UserResponseDto {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private UserStatus status;
     private List<UserBorrowBook> borrowedBooks;
 }
