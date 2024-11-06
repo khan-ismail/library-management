@@ -2,11 +2,8 @@ package com.zerotoismail.librarymanagement.dto;
 
 import lombok.*;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+@Data
+@Builder
 public class ResponseDto {
     private int statusCode;
     private String message;

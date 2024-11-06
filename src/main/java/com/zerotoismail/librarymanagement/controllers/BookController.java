@@ -5,6 +5,7 @@ import com.zerotoismail.librarymanagement.dto.book.BookRequestDto;
 import com.zerotoismail.librarymanagement.dto.book.BookResponseDto;
 import com.zerotoismail.librarymanagement.services.BookService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,10 @@ public class BookController {
     public ResponseEntity<ResponseDto> deleteBook(@PathVariable UUID id){
         boolean deleted = bookService.deleteBook(id);
         if(deleted){
-            ResponseDto response = new ResponseDto(HttpStatus.OK.value(), "Book deleted successfully");
+            ResponseDto response = ResponseDto.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message("Book deleted successfully").build();
+
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

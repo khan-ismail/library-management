@@ -4,11 +4,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+@Data
+@Builder
 public class ErrorResponseDto {
     private int statusCode;
     private String apiPath;

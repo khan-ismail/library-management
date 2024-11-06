@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Setter
@@ -23,6 +23,6 @@ public class UserBorrowBook{
 
     @ManyToOne
     private User user;
-    private Date borrowDate;
-    private Date returnDate;
+    private LocalDateTime borrowDate;
+    private LocalDateTime returnDate;
 }

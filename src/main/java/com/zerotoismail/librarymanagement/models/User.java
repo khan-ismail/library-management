@@ -22,6 +22,6 @@ public class User extends BaseModel{
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserBorrowBook> borrowedBooks;
 }

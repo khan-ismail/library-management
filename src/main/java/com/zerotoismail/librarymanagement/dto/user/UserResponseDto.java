@@ -1,5 +1,6 @@
 package com.zerotoismail.librarymanagement.dto.user;
 
+import com.zerotoismail.librarymanagement.dto.UserResponseBorrowBookDto;
 import com.zerotoismail.librarymanagement.enums.UserStatus;
 import com.zerotoismail.librarymanagement.models.UserBorrowBook;
 import lombok.*;
@@ -18,5 +19,5 @@ public class UserResponseDto {
     private String lastName;
     private String email;
     private UserStatus status;
-    private List<UserBorrowBook> borrowedBooks;
+    private List<UserResponseBorrowBookDto> borrowedBooks;
 }

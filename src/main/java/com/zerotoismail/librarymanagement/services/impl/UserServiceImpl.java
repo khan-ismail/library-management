@@ -1,6 +1,7 @@
 package com.zerotoismail.librarymanagement.services.impl;
 
 import com.zerotoismail.librarymanagement.common.mapper.UserMapper;
+import com.zerotoismail.librarymanagement.dto.UserResponseBorrowBookDto;
 import com.zerotoismail.librarymanagement.dto.user.UserResponseDto;
 import com.zerotoismail.librarymanagement.enums.UserStatus;
 import com.zerotoismail.librarymanagement.exceptions.ResourceNotFoundException;
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         UserResponseDto responseDto = UserMapper.fromUserToUserResponseDto(user, new UserResponseDto());
-        responseDto.setBorrowedBooks(new ArrayList<UserBorrowBook>());
+        responseDto.setBorrowedBooks(new ArrayList<UserResponseBorrowBookDto>());
 
         return responseDto;
     }

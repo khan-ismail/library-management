@@ -4,11 +4,8 @@ import com.zerotoismail.librarymanagement.enums.UserStatus;
 import lombok.*;
 
 
-@Setter
-@Getter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@Builder
 public class UserRequestDto {
     private String firstName;
     private String lastName;

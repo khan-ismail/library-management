@@ -59,7 +59,9 @@ public class UserController {
     public ResponseEntity<ResponseDto> deleteUser(@PathVariable UUID id) {
         boolean deleted = userService.deleteUser(id);
         if(deleted){
-            ResponseDto responseDto = new ResponseDto(HttpStatus.OK.value(), "User deleted successfully");
+            ResponseDto responseDto = ResponseDto.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message("User deleted successfully").build();
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
