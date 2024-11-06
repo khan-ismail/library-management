@@ -16,6 +16,7 @@ public enum BookGenreType {
     MYSTERY,
     MUSICAL,
     PROGRAMMING,
+    DESIGN,
     ROMANCE,
     SCIENCE_FICTION,
     THRILLER,

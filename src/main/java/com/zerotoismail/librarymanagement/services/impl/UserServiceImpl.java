@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
 
         for (User user : users) {
             UserResponseDto responseDto = UserMapper.fromUserToUserResponseDto(user, new UserResponseDto());
-            responseDto.setBorrowedBooks(new ArrayList<UserBorrowBook>());
             userResponseDtos.add(responseDto);
         }
 
@@ -36,9 +35,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(UUID id) {
-        return userRepository.findById(id)
+    public UserResponseDto getUserById(UUID id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", id.toString()));
+        return UserMapper.fromUserToUserResponseDto(user, new UserResponseDto());
     }
 
     @Override
@@ -47,8 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> searchUserByEmail(String title) {
-        return userRepository.findByEmail(title);
+    public UserResponseDto searchUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("User", "email", email)
+        );
+        return UserMapper.fromUserToUserResponseDto(user, new UserResponseDto());
     }
 
     @Override
@@ -72,11 +75,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUser(UUID id) {
+    public boolean deleteUser(UUID id) {
         User foundUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", id.toString()));
-
-        userRepository.delete(foundUser);
-        return foundUser;
+        userRepository.deleteById(id);
+        return true;
     }
 }

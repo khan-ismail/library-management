@@ -4,6 +4,8 @@ import com.zerotoismail.librarymanagement.dto.user.UserRequestDto;
 import com.zerotoismail.librarymanagement.dto.user.UserResponseDto;
 import com.zerotoismail.librarymanagement.models.User;
 
+import java.util.ArrayList;
+
 public class UserMapper {
 
     public static User fromUserToUserRequestDto(UserRequestDto userRequestDto, User user) {
@@ -30,6 +32,7 @@ public class UserMapper {
         userResponseDto.setLastName(user.getLastName());
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setStatus(user.getStatus());
+        userResponseDto.setBorrowedBooks(user.getBorrowedBooks() == null ? new ArrayList<>() : user.getBorrowedBooks());
         return userResponseDto;
     }
 }

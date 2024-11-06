@@ -6,7 +6,7 @@ import com.zerotoismail.librarymanagement.models.Book;
 
 public class BookMapper {
 
-    static Book fromBookRequestDtoToBook(BookRequestDto bookRequestDto, Book book) {
+    public static Book fromBookRequestDtoToBook(BookRequestDto bookRequestDto, Book book) {
         book.setTitle(bookRequestDto.getTitle());
         book.setAuthor(bookRequestDto.getAuthor());
         book.setPublisher(bookRequestDto.getPublisher());
@@ -17,7 +17,7 @@ public class BookMapper {
         return book;
     }
 
-    static BookRequestDto fromBookToBookRequestDto(Book book, BookRequestDto bookRequestDto) {
+    public static BookRequestDto fromBookToBookRequestDto(Book book, BookRequestDto bookRequestDto) {
         bookRequestDto.setTitle(book.getTitle());
         bookRequestDto.setAuthor(book.getAuthor());
         bookRequestDto.setPublisher(book.getPublisher());
@@ -28,7 +28,7 @@ public class BookMapper {
         return bookRequestDto;
     }
 
-    static BookResponseDto fromBookToBookResponseDto(Book book, BookResponseDto bookResponseDto) {
+    public static BookResponseDto fromBookToBookResponseDto(Book book, BookResponseDto bookResponseDto) {
         bookResponseDto.setUuid(book.getId());
         bookResponseDto.setTitle(book.getTitle());
         bookResponseDto.setAuthor(book.getAuthor());

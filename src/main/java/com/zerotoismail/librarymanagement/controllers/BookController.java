@@ -1,7 +1,8 @@
 package com.zerotoismail.librarymanagement.controllers;
 
+import com.zerotoismail.librarymanagement.dto.ResponseDto;
 import com.zerotoismail.librarymanagement.dto.book.BookRequestDto;
-import com.zerotoismail.librarymanagement.models.Book;
+import com.zerotoismail.librarymanagement.dto.book.BookResponseDto;
 import com.zerotoismail.librarymanagement.services.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,35 +20,45 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllBooks(){
+    public ResponseEntity<List<BookResponseDto>> getAllBooks(){
         return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
     }
 
-//    @GetMapping("/books")
-//    public ResponseEntity<Book> getBookById(@RequestParam UUID id){
-//        Book book = bookService.getBookById(id);
-//        return new ResponseEntity<>(book, HttpStatus.OK);
-//    }
-//
+    @GetMapping("/books/{id}")
+    public ResponseEntity<BookResponseDto> getBookById(@PathVariable UUID id){
+        BookResponseDto book = bookService.getBookById(id);
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
+    @GetMapping("/books/search")
+    public ResponseEntity<List<BookResponseDto>> searchBookByTitle(@RequestParam String title){
+        List<BookResponseDto> book = bookService.searchBookByTitle(title);
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
     @PostMapping("/books")
-    public ResponseEntity<Book> createBook(@RequestBody BookRequestDto bookDto){
-        Book book = bookService.createOrUpdateBook(null, bookDto.getTitle(), bookDto.getAuthor(),
+    public ResponseEntity<BookResponseDto> createBook(@RequestBody BookRequestDto bookDto){
+        BookResponseDto book = bookService.createOrUpdateBook(null, bookDto.getTitle(), bookDto.getAuthor(),
                 bookDto.getPublisher(), bookDto.getGenreTypes(), bookDto.getBookStatus(),
                 bookDto.getIsbn(), bookDto.getPageSize());
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/books")
-//    public ResponseEntity<Book> updateBook(@RequestParam UUID id, @RequestBody BookRequestDto bookDto){
-//        Book book = bookService.createOrUpdateBook(id, bookDto.getTitle(), bookDto.getAuthor(),
-//                bookDto.getPublisher(), bookDto.getGenreTypes(), bookDto.getBookStatus(),
-//                bookDto.getIsbn(), bookDto.getPageSize());
-//        return new ResponseEntity<>(book, HttpStatus.CREATED);
-//    }
-//
-//    @DeleteMapping("/books/{id}")
-//    public ResponseEntity<Book> deleteBook(@PathVariable UUID id){
-//        Book book = bookService.deleteBook(id);
-//        return new ResponseEntity<>(book, HttpStatus.OK);
-//    }
+    @PutMapping("/books/{id}")
+    public ResponseEntity<BookResponseDto> updateBook(@PathVariable UUID id, @RequestBody BookRequestDto bookDto){
+        BookResponseDto book = bookService.createOrUpdateBook(id, bookDto.getTitle(), bookDto.getAuthor(),
+                bookDto.getPublisher(), bookDto.getGenreTypes(), bookDto.getBookStatus(),
+                bookDto.getIsbn(), bookDto.getPageSize());
+        return new ResponseEntity<>(book, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<ResponseDto> deleteBook(@PathVariable UUID id){
+        boolean deleted = bookService.deleteBook(id);
+        if(deleted){
+            ResponseDto response = new ResponseDto(HttpStatus.OK.value(), "Book deleted successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
